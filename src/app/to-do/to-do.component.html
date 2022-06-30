@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="text d-flex flex-column gap-2 form-group">
+    <label for="add-notes">Add To-Do : </label>
+
+    <input
+      id="add-note"
+      class="form-control col-sm-12"
+      #addNote
+      ngModel
+      name="todo"
+      #todo="ngModel"
+      placeholder="Add a to-do task to submit"
+      required
+    />
+    <div
+      *ngIf="todo.errors && (todo.dirty || todo.touched); else valid"
+      class="alert alert-danger"
+    >
+      <div *ngIf="todo.errors?.['required']" class="error">
+        To-Do task is required
+      </div>
+    </div>
+    <ng-template #valid>
+      <div>
+        <button
+          type="submit"
+          class="btn btn-primary col-sm-2 mb-3"
+          [disabled]="addNote.value === ''"
+          (click)="submit(addNote.value); addNote.value = ''"
+        >
+          Submit
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<div class="me-3">
+  <ol>
+    <li
+      *ngFor="let l of list"
+      class="alert alert-primary text-dark col-sm-12 d-flex flex-wrap justify-content-between"
+    >
+      {{ l.toDo }}
+      <div>
+        <button class="btn btn-warning text-dark me-3" (click)="onEdit(l)">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button class="btn btn-danger text-white" (click)="onDelete(l)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+      <div *ngIf="l === selectedToDo && flag == true">
+        <div class="d-flex flex-column">
+          <input
+            id="todo"
+            class="form-control col-sm-6 mb-2"
+            [(ngModel)]="selectedToDo.toDo"
+            placeholder="Edit your to-do"
+          />
+          <button
+            class="btn btn-success text-white col-sm-4"
+            (click)="onSave()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>

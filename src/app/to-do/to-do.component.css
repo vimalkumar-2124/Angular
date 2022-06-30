@@ -1,0 +1,10 @@
+.text, .alert{
+    font-size: 3em;
+}
+
+input{
+    font-size: 24px;
+}
+.error{
+    font-size: 25px;
+}
