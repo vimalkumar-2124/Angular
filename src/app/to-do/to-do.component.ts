@@ -10,6 +10,7 @@ export class ToDoComponent implements OnInit {
   list:List[] = []
   id:number = 0
   flag:boolean = true
+  toHide:boolean = false
   selectedToDo!:List;
   constructor() { }
 
@@ -25,6 +26,7 @@ export class ToDoComponent implements OnInit {
     
     this.selectedToDo = l
     this.flag = true
+    this.toHide = true
 
   }
 
@@ -38,5 +40,6 @@ export class ToDoComponent implements OnInit {
   }
   onSave(){
     this.flag = false
+    this.toHide = true
   }
 }
