@@ -43,7 +43,7 @@
     >
       {{ l.toDo }}
       <div>
-        <button class="btn btn-warning text-dark me-3" (click)="onEdit(l)">
+        <button class="btn btn-warning text-dark me-3" [hidden]="toHide" (click)="onEdit(l)">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
         <button class="btn btn-danger text-white" (click)="onDelete(l)">
