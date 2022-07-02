@@ -2,36 +2,37 @@
   <div class="text d-flex flex-column gap-2 form-group">
     <label for="add-notes">Add To-Do : </label>
 
-    <input
-      id="add-note"
-      class="form-control col-sm-12"
-      #addNote
-      ngModel
-      name="todo"
-      #todo="ngModel"
-      placeholder="Add a to-do task to submit"
-      required
-    />
-    <div
-      *ngIf="todo.errors && (todo.dirty || todo.touched); else valid"
-      class="alert alert-danger"
-    >
-      <div *ngIf="todo.errors?.['required']" class="error">
-        To-Do task is required
+      <input
+        id="add-note"
+        class="form-control col-sm-10"
+        #addNote
+        ngModel
+        name="todo"
+        #todo="ngModel"
+        placeholder="Add a to-do task to submit"
+        required
+      />
+      <div
+        *ngIf="todo.errors && (todo.dirty || todo.touched); else valid"
+        class="alert alert-danger"
+      >
+        <div *ngIf="todo.errors?.['required']" class="error">
+          To-Do task is required
+        </div>
       </div>
-    </div>
-    <ng-template #valid>
-      <div>
-        <button
-          type="submit"
-          class="btn btn-primary col-sm-2 mb-3"
-          [disabled]="addNote.value === ''"
-          (click)="submit(addNote.value); addNote.value = ''"
-        >
-          Submit
-        </button>
-      </div>
-    </ng-template>
+      <ng-template #valid>
+        <div>
+          <button
+            type="submit"
+            class="btn btn-primary col-sm-2"
+            [disabled]="addNote.value === ''"
+            (click)="submit(addNote.value); addNote.value = ''"
+          >
+          <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </ng-template>
+    
   </div>
 </div>
 
@@ -43,29 +44,34 @@
     >
       {{ l.toDo }}
       <div>
+        
         <button class="btn btn-warning text-dark me-3" [hidden]="toHide" (click)="onEdit(l)">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
         <button class="btn btn-danger text-white" (click)="onDelete(l)">
           <i class="fa-solid fa-trash"></i>
         </button>
+        <p class="edited mb-0" *ngIf="l.edited" >Edited at {{ date }}</p>
       </div>
-      <div *ngIf="l === selectedToDo && flag == true">
+      <div *ngIf="l === selectedToDo && l.edited === false">
         <div class="d-flex flex-column">
           <input
             id="todo"
             class="form-control col-sm-6 mb-2"
             [(ngModel)]="selectedToDo.toDo"
             placeholder="Edit your to-do"
+            
           />
           <button
             class="btn btn-success text-white col-sm-4"
-            (click)="onSave()"
+            (click)="onSave(l)"
           >
             Save
           </button>
         </div>
+        
       </div>
+      
     </li>
   </ol>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { List } from '../to-do';
 
 @Component({
@@ -9,7 +10,9 @@ import { List } from '../to-do';
 export class ToDoComponent implements OnInit {
   list:List[] = []
   id:number = 0
-  flag:boolean = true
+  date!:string
+  // flag:boolean = true
+  // showTime:boolean = true
   toHide:boolean = false
   selectedToDo!:List;
   constructor() { }
@@ -18,15 +21,20 @@ export class ToDoComponent implements OnInit {
   }
   submit(value:string){
     this.id = this.id + 1
-    this.list.push({id:this.id, toDo:value})
+    this.list.push({id:this.id, toDo:value,edited:false})
     // console.log(this.list)
   }
 
   onEdit(l:List){
     
     this.selectedToDo = l
-    this.flag = true
+    // this.flag = true
     this.toHide = true
+    // this.showTime = true
+    this.date = moment().format('llll')
+
+
+
 
   }
 
@@ -38,8 +46,17 @@ export class ToDoComponent implements OnInit {
     })
     // console.log(this.list)
   }
-  onSave(){
-    this.flag = false
-    this.toHide = true
+  onSave(editedValue:List){
+    // console.log("edededed",editedvalue);
+    this.list.map((ele) => {
+      if(ele.id === editedValue.id){
+        ele.edited = true
+      }
+      // console.log(ele)
+    })
+    
+    // this.flag = false
+    this.toHide = false
+    // this.showTime = false
   }
 }
